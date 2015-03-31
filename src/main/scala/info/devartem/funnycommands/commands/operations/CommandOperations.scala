@@ -8,6 +8,16 @@ trait Operation {
   val name: String
 }
 
+
+object NoopOperation extends Operation {
+
+  override val name: String = "noop"
+
+  override def apply() = {
+    (s: String) => s
+  }
+}
+
 object ReverseOperation extends Operation {
 
   override val name: String = "reverse"
@@ -42,7 +52,7 @@ object EchoOperation extends Operation {
 }
 
 object CommandOperations {
-  val availableOperations: Map[String, Operation] = List(ReverseOperation, DelayOperation, EchoOperation)
+  val availableOperations: Map[String, Operation] = List(NoopOperation, ReverseOperation, DelayOperation, EchoOperation)
     .foldLeft(Map[String, Operation]()) { (map, operation) => map.+(operation.name -> operation)}
 
   def operationByName(op: String): Operation = {

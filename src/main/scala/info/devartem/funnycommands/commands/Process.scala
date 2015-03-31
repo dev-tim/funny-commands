@@ -1,13 +1,20 @@
 package info.devartem.funnycommands.commands
 
+import info.devartem.funnycommands.CommandsContext
+import info.devartem.funnycommands.exception.CommandValidationException
 import info.devartem.funnycommands.lexer.LexedParam
 
-import scala.util.{Failure, Try}
+import scala.util.Try
 
-class Process extends Command{
-  override val name: String = "process"
+case class Process(name: String = "process", result: List[String] = List())
+                  (implicit ctx: CommandsContext) extends Command(ctx: CommandsContext) {
 
   override def bind(params: List[LexedParam]): Try[Command] = {
-    Failure(new Exception)
+    Try(params match {
+      case list if list.size > 0 =>
+        val executionRes: List[String] = ctx.executeTasks(list.map(_.name))
+        this.copy(result = executionRes)
+      case _ => throw CommandValidationException(name, "Not enough arguments")
+    })
   }
 }

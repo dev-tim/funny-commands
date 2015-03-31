@@ -7,14 +7,12 @@ import info.devartem.funnycommands.lexer.LexedParam
 
 import scala.util.Try
 
-class Task extends Command {
-
-  override val name: String = "task"
+case class Task(name: String = "task")(implicit ctx: CommandsContext) extends Command(ctx: CommandsContext) {
 
   override def bind(params: List[LexedParam]): Try[Command] = {
     Try(params match {
       case n :: op :: xs if isOperationDefined(op.name) =>
-        CommandsContext.defineTask(n.name, getOperation(op.name).apply())
+        ctx.defineTask(n.name, getOperation(op.name).apply())
         this
       case _ => throw CommandValidationException(name, "Not enough arguments")
     })

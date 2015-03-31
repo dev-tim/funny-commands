@@ -1,18 +1,17 @@
 package info.devartem.funnycommands.commands
 
 import info.devartem.funnycommands.CommandsContext
-import info.devartem.funnycommands.exception.CommandValidationException
-import info.devartem.funnycommands.lexer.LexedParam
+import info.devartem.funnycommands.exception._
+import info.devartem.funnycommands.lexer._
 
 import scala.util.Try
 
-class Link extends Command {
-  override val name: String = "link"
+case class Link(name: String = "link")(implicit ctx: CommandsContext) extends Command(ctx : CommandsContext) {
 
   override def bind(params: List[LexedParam]) = {
     Try(params match {
-      case t1 :: t2 :: xs if CommandsContext.isTasksDefined(t1.name, t2.name) => {
-        CommandsContext.linkTasks(t1.name, t2.name)
+      case t1 :: t2 :: xs if ctx.isTasksDefined(t1.name, t2.name) => {
+        ctx.linkTasks(t1.name, t2.name)
         this
       }
       case _ => throw CommandValidationException(name, "Not enough arguments")
