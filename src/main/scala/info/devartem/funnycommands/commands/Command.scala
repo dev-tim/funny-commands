@@ -33,6 +33,6 @@ object Command {
     .foldLeft(Map[String, Command]()) { (map, command) => map.+(command.name -> command)}
 
   def commandByName(commandName: String): Try[Command] = {
-    Try(availableCommands.getOrElse(commandName, throw InvalidCommandException(commandName)))
+    Try(availableCommands.getOrElse(commandName, throw new InvalidCommandException(s"Invalid command name - $commandName, command is not defined")))
   }
 }

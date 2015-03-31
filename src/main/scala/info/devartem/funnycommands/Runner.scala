@@ -2,6 +2,7 @@ package info.devartem.funnycommands
 
 import info.devartem.funnycommands.commands._
 import info.devartem.funnycommands.lexer._
+import org.parboiled.errors.ParsingException
 
 
 object Runner {
@@ -23,7 +24,8 @@ object Runner {
         case _ =>
           println("Please define another task or type process ...")
       } recover {
-        case e => println("Error!!", e.getMessage)
+        case ex: ParsingException => println("Error - can't parse command, invalid characters")
+        case e => println(s"Error ${e.getMessage}")
       }
     })
   }

@@ -1,7 +1,8 @@
 package info.devartem.funnycommands.exception
 
 
-case class CommandValidationException(commandName: String, cause: String) extends RuntimeException
 
-case class InvalidCommandException(commandName: String) extends RuntimeException
+class CommandValidationException(message: String = null, cause: Throwable = null) extends RuntimeException(message, cause)
+
+class InvalidCommandException(message: String = null, cause: Throwable = null) extends RuntimeException(message, cause)
 

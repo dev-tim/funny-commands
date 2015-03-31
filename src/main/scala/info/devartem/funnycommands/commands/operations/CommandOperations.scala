@@ -56,6 +56,6 @@ object CommandOperations {
     .foldLeft(Map[String, Operation]()) { (map, operation) => map.+(operation.name -> operation)}
 
   def operationByName(op: String): Operation = {
-    availableOperations.getOrElse(op, throw InvalidCommandException(op))
+    availableOperations.getOrElse(op, throw new InvalidCommandException(s"Not defined such operation: $op"))
   }
 }
