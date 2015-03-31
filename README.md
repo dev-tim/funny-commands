@@ -2,7 +2,7 @@
 
 Hi folks!
 
-Here is an example of command execution framework, where you I have defined my own "micro language". The Basic idea here is to define tasks in the context and build a pipeline of execution for their tasks.
+Here is an example of command execution framework, where you I have defined my own "micro language". Basic idea here is to define tasks in the context and build a pipeline of execution for their tasks. For that we define rules to build simple AST with a help of [Paraboled](https://github.com/sirthias/parboiled/wiki). 
 
 For the simplification I took the idea that every operation can represent different kind of action, in this example we have just 3 main operations:
 
